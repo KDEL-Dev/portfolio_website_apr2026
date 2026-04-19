@@ -1,37 +1,123 @@
-// Wait until the entire page (including images, scripts, etc.) is fully loaded
 window.onload = () => {
 
-    // Get the HTML element with the ID "projectContainer"
-    const container = document.getElementById("projectContainer");
+    gsap.registerPlugin(Draggable);
 
-    // Convert all child elements of the container into an array
-    const cards = Array.from(container.children);
+    const container = document.querySelector("#projectContainer");
 
-    // Loop through each card element
-    cards.forEach(card => {
-        // Clone each card and append it to the container (duplicates content for seamless scrolling)
-        container.appendChild(card.cloneNode(true));
-    });
+    // ✅ duplicate content for infinite loop
+    container.innerHTML += container.innerHTML;
 
-    // Calculate half of the total scrollable width (original + cloned content)
+    const cards = document.querySelectorAll(".allCards");
+    const totalCards = cards.length / 2;
+
+    let currentIndex = 0;
+
+    const cardWidth = cards[0].offsetWidth + 20;
+    const wrapper = document.querySelector("#projectWrapper");
+    const containerWidth = wrapper.offsetWidth;
+
+    const offset = (containerWidth / 2) - (cardWidth / 2);
+
     const totalWidth = container.scrollWidth / 2;
 
-    // Create a GSAP animation that moves the container horizontally
-    const tween = gsap.to(container, {
-        x: -totalWidth,              // Move container to the left by totalWidth
-        duration: 20,                // Animation lasts 20 seconds
-        ease: "none",                // Linear animation (constant speed)
-        repeat: -1,                  // Repeat infinitely
-        modifiers: {
-            // Ensures the x value loops seamlessly using modulo
-            x: gsap.utils.unitize(x => parseFloat(x) % totalWidth)
+    gsap.set(container, { x: 0 });
+
+    // -------------------------
+    // LOOP WRAPPING
+    // -------------------------
+    function checkBounds() {
+        let x = gsap.getProperty(container, "x");
+
+        if (x <= -totalWidth) {
+            gsap.set(container, { x: x + totalWidth });
+        } else if (x >= 0) {
+            gsap.set(container, { x: x - totalWidth });
+        }
+    }
+
+    // -------------------------
+    // CENTER CARD SCALING
+    // -------------------------
+    function updateCardScale() {
+        const center = window.innerWidth / 2;
+
+        cards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            const cardCenter = rect.left + rect.width / 2;
+
+            const distance = Math.abs(center - cardCenter);
+
+            const maxDistance = 400;
+
+            let scale = 1 - (distance / maxDistance) * 0.25;
+
+            scale = Math.max(0.85, Math.min(1.15, scale));
+
+            gsap.set(card, {
+                scale: scale
+            });
+        });
+    }
+
+    // -------------------------
+    // GO TO CARD (SNAP)
+    // -------------------------
+    function goToCard(index) {
+        currentIndex = index;
+
+        gsap.to(container, {
+            x: -(currentIndex * cardWidth) + offset,
+            duration: 0.5,
+            ease: "power2.out",
+            onUpdate: () => {
+                checkBounds();
+                updateCardScale();
+            }
+        });
+    }
+
+    // -------------------------
+    // DRAG SUPPORT
+    // -------------------------
+    Draggable.create(container, {
+        type: "x",
+        inertia: true,
+        edgeResistance: 0.85,
+
+        onDrag: () => {
+            checkBounds();
+            updateCardScale();
+        },
+
+        onThrowUpdate: () => {
+            checkBounds();
+            updateCardScale();
+        },
+
+        onDragEnd: () => {
+            let x = gsap.getProperty(container, "x");
+            let index = Math.round((-x + offset) / cardWidth);
+            goToCard(index);
         }
     });
 
-    // Pause the animation when the mouse enters the container
-    container.addEventListener("mouseenter", () => tween.pause());
+    // -------------------------
+    // BUTTONS
+    // -------------------------
+    const nextBtn = document.querySelector("#next");
+    const prevBtn = document.querySelector("#prev");
 
-    // Resume the animation when the mouse leaves the container
-    container.addEventListener("mouseleave", () => tween.resume());
+    nextBtn.addEventListener("click", () => {
+        goToCard(currentIndex + 1);
+    });
+
+    prevBtn.addEventListener("click", () => {
+        goToCard(currentIndex - 1);
+    });
+
+    // -------------------------
+    // INIT SCALE
+    // -------------------------
+    updateCardScale();
 
 };
