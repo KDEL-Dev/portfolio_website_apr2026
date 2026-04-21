@@ -2,9 +2,8 @@ window.onload = () => {
 
     gsap.registerPlugin(Draggable);
 
-    const container = document.querySelector("#projectContainer");
+    const container = document.getElementById("#projectContainer");
 
-    // ✅ duplicate content for infinite loop
     container.innerHTML += container.innerHTML;
 
     const cards = document.querySelectorAll(".allCards");
