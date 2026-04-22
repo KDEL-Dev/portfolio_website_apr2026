@@ -40,7 +40,7 @@ header
 #KDEL
 {
     color: white;
-    font-family: michroma;
+    font-family: "michroma";
     font-size: 2em;
     font-weight: 400;
 
@@ -93,12 +93,11 @@ header
     height: 90vh;
 
     /*Chose a darker color for purple to  make it fade to make more subtle*/
-    background-image: radial-gradient(#44144420 5%,black);
+    background-color: black;
+background-image: radial-gradient(#44144420 5%, transparent);
     
-
     box-sizing: border-box;
-    border-bottom: 25px solid;
-    border-image: linear-gradient(to right,#065A6020,#1B3A4B,#B33AB320) 1;
+   
 }
 
 
@@ -119,7 +118,7 @@ header
 {
     font-family: "michroma";
     /* color: #B33AB3; */
-    color: rgb(235, 183, 218);
+    color: rgb(192, 94, 159);
 
     
     font-size: 1.5em;
@@ -132,35 +131,44 @@ header
     
 }
 
+#developerText
+{
+    color: rgb(179, 187, 190);
+}
+
 
 
 #MyInfoContainer
 {
     display: flex;
-    margin-top: 50px;
-    margin-bottom: 50px;
-
+    margin: 80px 25px 50px 25px;
 }
 
 #AboutMeContainer
 {
     width: 85%;
+
+    display: flex;
 }
 
 
 #AboutMe
-{
+{   margin-left: 20px;
     margin-right: 50px;
 
     font-family: "montserrat";
     color: white;
+
+    
 }
 
 
 #AboutMe h2
 {
+    margin: 0;
+
     font-weight: 400;
-    font-size: 3em;
+    font-size: 2em;
     width: 100%;
     text-align: center;
     background-image: linear-gradient(to right,#065A60,#312244);
@@ -171,13 +179,23 @@ header
 #AboutMe p
 {
     color: black;
+    font-size: 1.5em;
+}
+
+#myPictureCont
+{
+    display: flex;
+}
+
+#myPicture
+{
+    flex: 1;
+    max-height: 620px;
 }
 
 #skills
 {
     flex: 1;
-    margin-top: 40px;
-    margin-right: 25px;
 
     font-family: "montserrat";
     color: white;
@@ -200,7 +218,7 @@ header
 {
     color: white;
     font-size: 1em;
-    font-family: michroma;
+    font-family: "michroma";
     font-weight: 400;
     
     margin-left: 20px;
@@ -223,12 +241,25 @@ header
 .skillBox
 {
     width: 100%;
+    padding: 5px 0;
 
     background-color: black;
 
     display: flex;
     justify-content: left;
 }
+
+.skillBox:nth-child(1) 
+{ 
+    border-bottom: 3px solid #006466; 
+} 
+.skillBox:nth-child(2) { border-bottom: 3px solid #065A60; } /* CSS */
+.skillBox:nth-child(3) { border-bottom: 3px solid #065A60; } /* JS */
+.skillBox:nth-child(4) { border-bottom: 3px solid #1B3A4B; } /* C# */
+.skillBox:nth-child(5) { border-bottom: 3px solid #212F45; } /* ASP */
+.skillBox:nth-child(6) { border-bottom: 3px solid #272640; } /* Figma */
+.skillBox:nth-child(7) { border-bottom: 3px solid #3E1F47; } /* GitHub */
+.skillBox:nth-child(8) { border-bottom: 3px solid #4D194D; } /* Photoshop */
 
 .codeLogo
 {
@@ -375,9 +406,9 @@ header
 #Projects h2
 {
    color: white;
-   font-family: michroma;
+   font-family: "michroma";
    font-weight: 400;
-   font-size: 1.5em;
+   font-size: 2em;
    margin: 0;
    background-image: linear-gradient(to right,#065A60,#312244);
 }
@@ -438,9 +469,9 @@ header
 
 #projectContainer p
 {
-    font-size: .75em;
     color: white;
-    font-family: michroma;
+    font-size: 1.25em;
+    font-family: "montserrat";
 }
 
 .allCards
@@ -525,7 +556,12 @@ header
 .projImg img
 {
     flex: 1;
-    max-height: 100%
+    max-height: 100%;
+}
+
+#ascentImg
+{
+    scale: 1.25;
 }
 
 .projCenter
@@ -537,10 +573,6 @@ header
     height: 80%;
 }
 
-.projCenter p
-{
-    font-family: "montserrat";
-}
 
 
 .projInfo
@@ -562,83 +594,83 @@ header
 
 #contact h3
 {
-    font-family: "montserrat";
-    font-style: italic;
-    font-weight: 400;
+    font-family: "michroma";
     font-size: 3em;
+    font-weight: 400;
+    background-image: linear-gradient(to right,#065A60,#312244);
+    color: white;
 
-    text-shadow: 0 3px 3px rgb(199, 199, 199);
+    width: 100%;
+    text-align: center;
+
+    margin: 50px 0;
 }
 
-form
+#contactContainer
 {
-    width: 40%;
+    width: 50%;
+    height: 300px;
+    margin-bottom: 100px;
+    padding: 10px;
+
+    background-color: rgb(0, 0, 0);
+    border: #065A60 4px solid;
+    border-radius: 20px;
+
     display: flex;
+    justify-content: center;
+}
+
+.contactSect
+{
+    width: 50%;
+
+    border-right: #006466 3px solid;
+    color: white;
+    text-align: center;
+    font-family: "montserrat";
+
+    display: flex; 
     flex-direction: column;
+}
+
+.contactSect:last-child
+{
+    border-right: none;
+}
+
+.contactIconCard
+{
+    flex: 1;
+    max-width: 100%;
+    margin: 20px;
+
+    background-color: white;
+    /* border: #fa35fa 2px solid; */
+
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#topBoxes
+.contactIconCard img
 {
-    display: flex;
-    justify-content: space-between;
-    gap: 50px;
+    width: 100%;
+    height: 180px;
+
+    scale: .8;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
-.largerInput
-{
-    font-size: 1em;
-    height: 20px;
-    padding: 10px;
-}
-
-.labelAbove
-{
-    display: flex;
-    flex-direction: column;
-
-    font-size: 1.5em;
-    font-family: "montserrat";
-}
-
-#messageDiv
-{
-    margin-top: 30px;
-    margin-bottom: 30px;
-
-    display: flex;
-    flex-wrap: wrap;
-}
-
-#message
-{
-    min-width: 680px;
+.contactIconCard img:hover {
+    transform: scale(1.1);
 }
 
 
-#submit
-{
-    margin-top: 10px;
-    max-width: 100px;
-
-    font-family: montserrat;
-    font-size: .75em;
-
-    background-color: #4D194D;
-    color: white;
-    border-style: none;
-
-    padding-left: 10px;
-    padding-right: 10px;
-
-    align-self: end;
-}
-
-#submit:active
-{
-    background-color: #B33AB3;
-}
+/******************
+      FOOTER     
+*******************/
 
 footer
 {
