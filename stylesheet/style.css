@@ -94,7 +94,7 @@ header
 
     /*Chose a darker color for purple to  make it fade to make more subtle*/
     background-color: black;
-background-image: radial-gradient(#44144420 5%, transparent);
+    background-image: radial-gradient(#44144420 5%, transparent);
     
     box-sizing: border-box;
    
@@ -179,7 +179,7 @@ background-image: radial-gradient(#44144420 5%, transparent);
 #AboutMe p
 {
     color: black;
-    font-size: 1.5em;
+    font-size: 1.25em;
 }
 
 #myPictureCont
@@ -295,9 +295,9 @@ background-image: radial-gradient(#44144420 5%, transparent);
 
 .textCenter
 {
-    /* text-align: center; */
+    text-align: center;
 
-    display: flex;
+    /* display: flex; */
 
 }
 
@@ -445,13 +445,15 @@ background-image: radial-gradient(#44144420 5%, transparent);
 #projectContainer
 {
     gap: 20px;
-    height: 600px;
-    width: max-content;
+    min-height: 600px;
+    width: 100%;
 
     background-color: black;
 
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
     
 }
 
@@ -476,12 +478,15 @@ background-image: radial-gradient(#44144420 5%, transparent);
 
 .allCards
 {
+    box-sizing: border-box;
     position: relative;
-    margin-right: 0;
+    margin: 20px 0;
     padding: 20px;
-    width: 500px;
-    height: 500px;
+    width: 450px;
+    height: 450px;
     z-index: 0;
+    flex: 0 1 450px; /* don't grow, can shrink evenly */
+
     
     overflow: hidden;
     background-color: black;
@@ -529,7 +534,7 @@ background-image: radial-gradient(#44144420 5%, transparent);
 
 .allCards:hover {
     transform: scale(1.05);
-    box-shadow: 0 10px 30px rgba(179, 58, 179, 0.3);
+    box-shadow: 0 0 30px rgba(179, 58, 179, 0.3);
 }
 
 /* /* .allCards:hover::before {
@@ -564,6 +569,16 @@ background-image: radial-gradient(#44144420 5%, transparent);
     scale: 1.25;
 }
 
+#myScaleBookImg
+{
+    border-bottom: 10px solid #dbbc3e;
+}
+
+#myScaleBookImg img
+{
+    scale: 1.25;
+}
+
 .projCenter
 {
     display: flex;
@@ -588,38 +603,76 @@ background-image: radial-gradient(#44144420 5%, transparent);
     
 #contact
 {
+    margin-top: 50px;
+
     display: flex;
-    flex-direction: column; ;   
+    flex-direction: column;
+    
+
 }
 
 #contact h3
 {
-    font-family: "michroma";
-    font-size: 3em;
-    font-weight: 400;
-    background-image: linear-gradient(to right,#065A60,#312244);
-    color: white;
-
     width: 100%;
-    text-align: center;
 
-    margin: 50px 0;
+    font-family: "michroma";
+    font-size: 1.5em;
+    font-weight: 400;
+    /* background-image: linear-gradient(to right,#065A60,#312244); */
+    color: white;
+    text-align: center;
+}
+
+#contactContainer p,
+#contactContainer h4
+{
+    margin: 0 10px;
+
+    color: white;
+    font-family: "montserrat";
 }
 
 #contactContainer
 {
-    width: 50%;
-    height: 300px;
+    min-width: 40%;
+    height: 250px;
     margin-bottom: 100px;
-    padding: 10px;
+    /* padding: 10px; */
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
 
     background-color: rgb(0, 0, 0);
-    border: #065A60 4px solid;
+    /* border: #065A60 4px solid; */
     border-radius: 20px;
 
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
+
+#contactContainer::before
+{
+    content: "";
+    inset: -10px;
+    background: conic-gradient(#065A60, #B33AB3ed, #065A60);
+    inset: 0;
+    position: absolute;
+    z-index: -1;
+    border-radius: 20px;
+
+}
+
+#contactContainer::after
+{
+    position: absolute;
+    content: "";
+    inset: 4px;
+    background-color: black;
+    border-radius: 16px;
+    z-index: -1;
+}
+
 
 .contactSect
 {
@@ -667,6 +720,29 @@ background-image: radial-gradient(#44144420 5%, transparent);
     transform: scale(1.1);
 }
 
+#exitLinkCont
+{
+    flex: 1;
+    width: 100%;
+
+    color: white;
+    text-align: center;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.contactLogos
+{
+    transition: .25s ease-in-out all;
+}
+
+.contactLogos:hover
+{
+    transform: scale(1.1);
+}
+
 
 /******************
       FOOTER     
@@ -702,12 +778,42 @@ footer p
     {
         margin-right: 15px;
         margin-left: 15px;
+
+        font-size: 1.25em;
+    }
+
+    #navBar
+    {
+        margin-right: 0;
     }
 
     #MyInfoContainer
     {
         display: flex;
         flex-direction: column;
+    }
+
+    #AboutMeContainer
+    {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    #myPictureCont
+    {
+        margin: 0 25px 20px 25px;
+    }
+
+    #myPicutre 
+    {
+        height: auto;
+        width: 100%;
+    }
+
+    #AboutMeContainer
+    {
+        width: 100%;
     }
 
     #AboutMe
@@ -739,6 +845,16 @@ footer p
     {
         flex: 1 1 45%;            /* Each skill box takes ~45% of the container */
         margin: 3px;             /* Optional spacing */
+    }
+
+    .allCards:last-child
+    {
+        margin-bottom: 50px;
+    }
+
+    .textCenter
+    {
+        text-align: center;
     }
 
     #aspBox
